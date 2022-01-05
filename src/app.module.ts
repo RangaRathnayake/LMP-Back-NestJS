@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { CustomerModule } from './customer/customer.module';
+import { ProductModule } from './product/product.module';
 
 
 @Module({
@@ -24,6 +25,7 @@ import { CustomerModule } from './customer/customer.module';
     }),
     UserModule,
     CustomerModule,
+    ProductModule,
 
   ],
   controllers: [AppController],
