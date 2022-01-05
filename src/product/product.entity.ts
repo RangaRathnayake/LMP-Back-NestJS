@@ -1,16 +1,18 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Product{
+export class Product {
     @PrimaryGeneratedColumn()
-    id:number;
+    id: number;
     @Column()
     name: string;
+    @Column({ nullable: true })
+    quality: string;
     @Column()
     sinhala: string;
-    @Column({nullable:true})
+    @Column({ nullable: true })
     code: string;
-    @Column({nullable:true})
+    @Column({ nullable: true })
     unitType: string;
     @Column()
     status: string;
