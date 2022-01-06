@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Buy } from "src/buy/buy.entity";
+import { Unit } from "src/unit/unit.entity";
+import { Column, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Product {
@@ -16,4 +18,8 @@ export class Product {
     unitType: string;
     @Column()
     status: string;
+    @OneToMany(() => Buy, buy => buy.product)
+    buys: Buy[];
+    @ManyToOne(() => Unit, unit => unit.products)
+    unit: Unit;
 }

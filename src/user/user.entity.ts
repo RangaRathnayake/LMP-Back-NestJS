@@ -1,3 +1,4 @@
+import { Buy } from "src/buy/buy.entity";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Utype } from "./utype.entity";
 
@@ -25,6 +26,7 @@ export class User {
     status: number;
     @ManyToOne(() => Utype, utype => utype.users)
     utype: Utype;
-
+    @OneToMany(() => Buy, buy => buy.user)
+    buys: Buy[];
 
 }
