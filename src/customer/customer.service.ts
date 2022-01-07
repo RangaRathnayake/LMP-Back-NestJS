@@ -20,7 +20,7 @@ export class CustomerService {
     }
 
     async getByMobile(mobile) {
-        return await this.customerRepository.find({ where: { mobile: mobile } })
+        return await this.customerRepository.createQueryBuilder("customer").where("customer.mobile like :mobile ", { mobile: mobile + '%' }).getMany();     
     }
 
 
