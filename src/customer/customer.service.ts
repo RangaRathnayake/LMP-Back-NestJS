@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { Customer } from './customer.entity';
 
 @Injectable()
@@ -17,6 +17,10 @@ export class CustomerService {
 
     async getById(id) {
         return await this.customerRepository.findOne(id);
+    }
+
+    async getByMobile(mobile) {
+        return await this.customerRepository.find({ where: { mobile: mobile } })
     }
 
 

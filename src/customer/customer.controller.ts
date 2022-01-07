@@ -21,4 +21,9 @@ export class CustomerController {
     async getById(@Param('id') id) {
         return await this.customerService.getById(id);
     }
+
+    @Get('mobile/:mobile')
+    async getByMobile(@Param('mobile') mobile) {
+        return await this.customerService.getByMobile(mobile);
+    }
 }
