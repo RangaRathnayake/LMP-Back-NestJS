@@ -7,6 +7,7 @@ import { CustomerModule } from './customer/customer.module';
 import { ProductModule } from './product/product.module';
 import { BuyModule } from './buy/buy.module';
 import { UnitModule } from './unit/unit.module';
+import { SellModule } from './sell/sell.module';
 
 
 @Module({
@@ -30,6 +31,7 @@ import { UnitModule } from './unit/unit.module';
     ProductModule,
     BuyModule,
     UnitModule,
+    SellModule,
 
   ],
   controllers: [AppController],
