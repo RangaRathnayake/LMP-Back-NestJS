@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { SellService } from './sell.service';
 import { SellController } from './sell.controller';
@@ -7,8 +8,8 @@ import { SellItem } from './sell_item.entity';
 import { Product } from 'src/product/product.entity';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([Sell,SellItem,Product])],
+  imports: [TypeOrmModule.forFeature([Sell, SellItem, Product])],
   providers: [SellService],
-  controllers: [SellController]
+  controllers: [SellController],
 })
 export class SellModule {}

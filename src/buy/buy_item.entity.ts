@@ -1,14 +1,14 @@
 /* eslint-disable prettier/prettier */
 import { Product } from 'src/product/product.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { Sell } from './sell.entity';
+import { Buy } from './buy.entity';
 
 @Entity()
-export class SellItem {
+export class BuyItem {
   @PrimaryGeneratedColumn()
   id: number;
-  @ManyToOne(() => Sell, (sell) => sell.sellItems)
-  sell: Sell;
+  @ManyToOne(() => Buy, (buy) => buy.buyItems)
+  buy: Buy;
   @ManyToOne(() => Product, (product) => product.sellItems)
   product: Product;
   @Column()
