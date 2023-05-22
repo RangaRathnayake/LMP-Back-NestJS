@@ -9,6 +9,7 @@ export class BuyController {
 
     @Post('save')
     async save(@Body('buy') buy) {
+        console.log(buy);
         return await this.buyService.save(buy);
     }
 
