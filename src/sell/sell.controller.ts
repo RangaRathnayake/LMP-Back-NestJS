@@ -8,6 +8,8 @@ export class SellController {
 
   @Post('save')
   async save(@Body('sell') sell) {
+    
+    console.log(sell);
     return await this.sellService.save(sell);
   }
 
