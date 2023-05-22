@@ -16,7 +16,13 @@ export class BuyService {
     try {
       const b = await this.buyRepository.save(buy);
       await buy.buyItems.forEach(async element => {
-        await this.buyItemRepo.save(element);
+        let bi = new BuyItem()
+        bi.buy = b;
+        bi.product = element.product;
+        bi.qty = element.qty;
+        bi.subTotal = element.subTotal;
+        bi.unitPrice = element.unitPrice;
+        await this.buyItemRepo.save(bi);
       });
       return b;
     } catch (error) {
