@@ -3,7 +3,17 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors();
+  app.enableCors({
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    origin: [
+      'http://127.0.0.1:5000',
+      'http://localhost:5000',
+      'https://lmptraders.com',
+      'https://www.lmptraders.com',
+      'https://www.app.lmptraders.com',
+      'https://app.lmptraders.com',
+    ], credentials: true,
+  });
   await app.listen(3000);
 }
 bootstrap();

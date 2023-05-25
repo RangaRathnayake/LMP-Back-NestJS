@@ -23,9 +23,9 @@ export class Product {
   code: string;
   @Column({ nullable: true })
   unitType: string;
-  @Column()
+  @Column({ default: 0.00 })
   selling_price: number;
-  @Column()
+  @Column({ default: 0.00 })
   buying_price: number;
   @Column()
   status: string;
