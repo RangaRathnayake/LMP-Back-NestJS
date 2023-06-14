@@ -22,7 +22,7 @@ export class Sell {
   date: string;
   @OneToMany(() => SellItem, (sellItem) => sellItem.sell)
   sellItems: SellItem[];
-  @Column()
+  @Column({ type: 'decimal', precision: 20, scale: 2, default: 0 })
   total: number;
   @Column()
   status: number;
