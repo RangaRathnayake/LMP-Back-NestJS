@@ -9,10 +9,16 @@ export class ProductService {
   constructor(
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
-  ) {}
+  ) { }
 
   async save(product): Promise<Product> {
-    return await this.productRepository.save(product);
+    try {
+      return await this.productRepository.save(product);
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+
   }
 
   async getAll(): Promise<Product[]> {
