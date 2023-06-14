@@ -4,10 +4,11 @@ import { ProductService } from './product.service';
 
 @Controller('product')
 export class ProductController {
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService) { }
 
   @Post('save')
   async save(@Body('product') product) {
+    console.log(product);
     return await this.productService.save(product);
   }
 
