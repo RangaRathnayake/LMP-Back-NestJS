@@ -30,7 +30,6 @@ export class BuyService {
         p.stock = p.stock + element.qty;
         p.buying_price = element.unitPrice;
         await this.productService.update(p);
-
       });
       return b;
     } catch (error) {
