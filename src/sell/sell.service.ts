@@ -5,13 +5,14 @@ import { Product } from 'src/product/product.entity';
 import { Repository } from 'typeorm';
 import { Sell } from './sell.entity';
 import { SellItem } from './sell_item.entity';
+import { ProductService } from 'src/product/product.service';
 
 @Injectable()
 export class SellService {
     constructor(
         @InjectRepository(Sell) private readonly sellRepository: Repository<Sell>,
         @InjectRepository(SellItem) private readonly itemRepository: Repository<SellItem>,
-        @InjectRepository(Product) private readonly productRepository: Repository<Product>,
+        private readonly productService: ProductService,
     ) { }
 
     async save(sell) {
@@ -19,6 +20,10 @@ export class SellService {
         sell.sellItems.forEach(async element => {
             element.sell = s.id;
             await this.itemRepository.save(element);
+            let p = await this.productService.getById(element.product.id);
+            p.stock = p.stock - element.qty;
+            p.selling_price = element.unitPrice;
+            await this.productService.update(p);
         });
         return await s;
     }
