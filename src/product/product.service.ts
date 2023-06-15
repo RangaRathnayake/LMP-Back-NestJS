@@ -21,6 +21,16 @@ export class ProductService {
 
   }
 
+  async update(product): Promise<Product> {
+    try {
+      return await this.productRepository.save(product);
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+
+  }
+
   async getAll(): Promise<Product[]> {
     return this.productRepository.find({ relations: ['unit'] });
   }

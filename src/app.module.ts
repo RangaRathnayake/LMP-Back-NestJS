@@ -10,6 +10,7 @@ import { UnitModule } from './unit/unit.module';
 import { SellModule } from './sell/sell.module';
 
 
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -32,6 +33,7 @@ import { SellModule } from './sell/sell.module';
     BuyModule,
     UnitModule,
     SellModule,
+
 
   ],
   controllers: [AppController],

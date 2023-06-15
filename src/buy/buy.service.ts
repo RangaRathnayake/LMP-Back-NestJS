@@ -4,12 +4,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Buy } from './buy.entity';
 import { BuyItem } from './buy_item.entity';
+import { ProductService } from 'src/product/product.service';
 
 @Injectable()
 export class BuyService {
   constructor(
     @InjectRepository(Buy) private readonly buyRepository: Repository<Buy>,
-    @InjectRepository(BuyItem) private readonly buyItemRepo: Repository<BuyItem>
+    @InjectRepository(BuyItem) private readonly buyItemRepo: Repository<BuyItem>,
+    private readonly productService: ProductService,
   ) { }
 
   async save(buy): Promise<Buy> {
@@ -24,6 +26,11 @@ export class BuyService {
         bi.unitPrice = element.unitPrice;
         bi.wastage = element.wastages;
         await this.buyItemRepo.save(bi);
+        let p = await this.productService.getById(element.product.id);
+        p.stock = p.stock + element.qty;
+        p.buying_price = element.unitPrice;
+        await this.productService.update(p);
+
       });
       return b;
     } catch (error) {
