@@ -22,6 +22,7 @@ export class BuyService {
         bi.qty = element.qty;
         bi.subTotal = element.subTotal;
         bi.unitPrice = element.unitPrice;
+        bi.wastage = element.wastages;
         await this.buyItemRepo.save(bi);
       });
       return b;
