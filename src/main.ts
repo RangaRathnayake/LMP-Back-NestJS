@@ -6,6 +6,8 @@ async function bootstrap() {
   app.enableCors({
     allowedHeaders: ['Content-Type', 'Authorization'],
     origin: [
+      'http://localhost:4200',
+      'http://127.0.0.1:4200',
       'http://127.0.0.1:5000',
       'http://localhost:5000',
       'https://lmptraders.com',
