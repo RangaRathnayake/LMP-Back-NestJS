@@ -26,9 +26,11 @@ export class BuyService {
         bi.unitPrice = element.unitPrice;
         bi.wastage = element.wastages;
         await this.buyItemRepo.save(bi);
-        let p = await this.productService.getById(element.product.id);
-        p.stock = p.stock + element.qty;
+        let p = await this.productService.getById(element.product);
+        console.log(p);
+        p.stock = Number(p.stock) + Number(element.qty);
         p.buying_price = element.unitPrice;
+        console.log(p)
         await this.productService.update(p);
       });
       return b;

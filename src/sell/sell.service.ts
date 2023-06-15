@@ -21,7 +21,7 @@ export class SellService {
             element.sell = s.id;
             await this.itemRepository.save(element);
             let p = await this.productService.getById(element.product.id);
-            p.stock = p.stock - element.qty;
+            p.stock = Number(p.stock) - Number(element.qty);
             p.selling_price = element.unitPrice;
             await this.productService.update(p);
         });
