@@ -11,10 +11,10 @@ export class SellItem {
   sell: Sell;
   @ManyToOne(() => Product, (product) => product.sellItems)
   product: Product;
-  @Column({ type: 'decimal', precision: 20, scale: 2, default: 0 })
+  @Column({ type: "decimal", precision: 10, scale: 2, default: 0 })
   unitPrice: number;
-  @Column({ type: 'decimal', precision: 20, scale: 2, default: 0 })
+  @Column({ type: "decimal", precision: 10, scale: 2, default: 0 })
   qty: number;
-  @Column({ type: 'decimal', precision: 20, scale: 2, default: 0 })
+  @Column({ type: "decimal", precision: 10, scale: 2, default: 0 })
   subTotal: number;
 }

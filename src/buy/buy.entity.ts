@@ -17,7 +17,7 @@ export class Buy {
   @OneToMany(() => BuyItem, (buyItem) => buyItem.buy)
   buyItems: BuyItem[];
 
-  @Column({ type: 'decimal', precision: 20, scale: 2, default: 0 })
+  @Column({ type: "decimal", precision: 10, scale: 2, default: 0 })
   total: number;
   @Column()
   status: number;

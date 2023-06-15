@@ -33,7 +33,7 @@ export class Product {
   unit: Unit;
   @OneToMany(() => SellItem, (sellItem) => sellItem.product)
   sellItems: SellItem[];
-  @Column({ type: 'decimal', precision: 20, scale: 2, default: 0.00 })
+  @Column({ type: "decimal", precision: 10, scale: 2, default: 0 })
   stock: number;
 
 }
