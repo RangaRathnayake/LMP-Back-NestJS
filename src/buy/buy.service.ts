@@ -6,12 +6,14 @@ import { Buy } from './buy.entity';
 import { BuyItem } from './buy_item.entity';
 import { ProductService } from 'src/product/product.service';
 
+
 @Injectable()
 export class BuyService {
   constructor(
     @InjectRepository(Buy) private readonly buyRepository: Repository<Buy>,
     @InjectRepository(BuyItem) private readonly buyItemRepo: Repository<BuyItem>,
     private readonly productService: ProductService,
+
   ) { }
 
   async save(buy): Promise<Buy> {
@@ -41,10 +43,17 @@ export class BuyService {
   }
 
   async getAll() {
-    return await this.buyRepository.find();
+    // return buy data with buyItems
+    return await this.buyRepository.find({ relations: ['buyItems',] });
+    // const query = this.buyRepository.query(`SELECT buy_item.id,buy_item.buyId,buy_item.productId,buy_item.unitPrice,buy_item.qty,buy_item.subTotal,buy_item.wastage,product.id,product.name,product.quality,product.sinhala,product.code,product.unitType,product.selling_price,product.buying_price,product.status,product.unitId,product.stock,buy.id,buy.customer,buy.DATE,buy.userId,buy.total FROM buy INNER JOIN buy_item ON buy.id=buy_item.buyId INNER JOIN product ON buy_item.productId=product.id`);
+    // return query;
   }
 
   async getById(id) {
     return await this.buyRepository.findOne(id);
   }
 }
+function InjectDataSource(): (target: typeof BuyService, propertyKey: undefined, parameterIndex: 3) => void {
+  throw new Error('Function not implemented.');
+}
+
