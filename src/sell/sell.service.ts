@@ -32,6 +32,12 @@ export class SellService {
         return await this.sellRepository.find({ relations: ['sellItems'] });
     }
 
+    async getByDate(date) {
+        // return await this.sellRepository.find({ relations: ['sellItems'] });
+        const query = this.sellRepository.query('SELECT sell.id, customer.`name` AS cus_name, customer.mobile AS cus_mobile, sell.date, sell.time, product.`name` AS product_name, product.quality AS product_quality, sell_item.unitPrice, sell_item.qty, sell_item.subTotal, sell.total FROM sell INNER JOIN customer ON sell.customer = customer.id INNER JOIN sell_item ON sell_item.sellId = sell.id INNER JOIN product ON sell_item.productId = product.id WHERE sell.`status` = "1" AND sell.date = "' + date + '"');
+        return query;
+    }
+
     async getById(id) {
         const s: Sell = await this.sellRepository.findOne(id, { relations: ['sellItems'] });
         const i = await this.itemRepository.find({ relations: ['product'], where: { sell: id } });

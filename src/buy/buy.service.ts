@@ -44,9 +44,16 @@ export class BuyService {
 
   async getAll() {
     // return buy data with buyItems
-    return await this.buyRepository.find({ relations: ['buyItems',] });
-    // const query = this.buyRepository.query(`SELECT buy_item.id,buy_item.buyId,buy_item.productId,buy_item.unitPrice,buy_item.qty,buy_item.subTotal,buy_item.wastage,product.id,product.name,product.quality,product.sinhala,product.code,product.unitType,product.selling_price,product.buying_price,product.status,product.unitId,product.stock,buy.id,buy.customer,buy.DATE,buy.userId,buy.total FROM buy INNER JOIN buy_item ON buy.id=buy_item.buyId INNER JOIN product ON buy_item.productId=product.id`);
-    // return query;
+    // return await this.buyRepository.find({ relations: ['buyItems',] });
+    const query = this.buyRepository.query('SELECT buy.id, customer.`name` AS cus_name, customer.mobile AS cus_mobile, buy.date, product.`name` AS product_name, product.quality AS product_quality, buy_item.unitPrice, buy_item.qty, buy_item.wastage, buy_item.subTotal, buy.total FROM buy INNER JOIN customer ON buy.customer = customer.id INNER JOIN buy_item ON buy_item.buyId = buy.id INNER JOIN product ON buy_item.productId = product.id WHERE buy.`status` = "1"');
+    return query;
+  }
+
+  async getByDate(date) {
+    // return buy data with buyItems
+    // return await this.buyRepository.find({ relations: ['buyItems',] });
+    const query = this.buyRepository.query('SELECT buy.id, customer.`name` AS cus_name, customer.mobile AS cus_mobile, buy.date, buy.time, product.`name` AS product_name, product.quality AS product_quality, buy_item.unitPrice, buy_item.qty, buy_item.wastage, buy_item.subTotal, buy.total FROM buy INNER JOIN customer ON buy.customer = customer.id INNER JOIN buy_item ON buy_item.buyId = buy.id INNER JOIN product ON buy_item.productId = product.id WHERE buy.`status` = "1" AND buy.date = "' + date + '"');
+    return query;
   }
 
   async getById(id) {

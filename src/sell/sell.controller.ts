@@ -18,6 +18,11 @@ export class SellController {
     return await this.sellService.getAll();
   }
 
+  @Get('allByDate/:date')
+  async getByDate(@Param('date') date) {
+    return await this.sellService.getByDate(date);
+  }
+
   @Get(':id')
   async getByID(@Param('id') id) {
     return await this.sellService.getById(id);

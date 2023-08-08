@@ -11,9 +11,10 @@ export class Buy {
   customer: number;
   @ManyToOne(() => User, (user) => user.buys)
   user: User;
-  @Column({ type: 'datetime' })
+  @Column({ type: 'date' })
   date: string;
-
+  @Column({ type: 'time' })
+  time: string;
   @OneToMany(() => BuyItem, (buyItem) => buyItem.buy)
   buyItems: BuyItem[];
 

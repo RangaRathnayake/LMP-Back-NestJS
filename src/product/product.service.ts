@@ -32,7 +32,7 @@ export class ProductService {
   }
 
   async getAll(): Promise<Product[]> {
-    return this.productRepository.find({ relations: ['unit'], order: { name: 'ASC' } });
+    return this.productRepository.find({ relations: ['unit'], order: { name: 'ASC' }, where: { status: '1' } });
   }
 
   async getById(id): Promise<Product> {
