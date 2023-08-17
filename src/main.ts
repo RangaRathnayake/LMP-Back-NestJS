@@ -9,6 +9,7 @@ async function bootstrap() {
       'http://localhost:4200',
       'http://127.0.0.1:4200',
       'http://127.0.0.1:5000',
+      'http://127.0.0.1:8080',
       'http://localhost:5000',
       'https://lmptraders.com',
       'https://www.lmptraders.com',

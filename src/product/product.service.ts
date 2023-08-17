@@ -28,7 +28,6 @@ export class ProductService {
       console.log(error);
       return error;
     }
-
   }
 
   async getAll(): Promise<Product[]> {

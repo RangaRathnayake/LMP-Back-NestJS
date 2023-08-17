@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { BuyService } from './buy.service';
 
 @Controller('buy')
@@ -23,9 +23,20 @@ export class BuyController {
         return await this.buyService.getByDate(date);
     }
 
+    @Get('ByDateRange/:sDate&:eDate')
+    async getByDateRange(@Param('sDate') sDate, @Param('eDate') eDate) {
+        return await this.buyService.getByDateRange(sDate, eDate);
+    }
+
     @Get(':id')
     async getById(@Param('id') id) {
         return await this.buyService.getById(id);
+    }
+
+    @Put(':id')
+    async update(@Param('id') id: string, @Body() body: any) {
+        const newCat: any = await this.buyService.update(id, body)
+        return "Receipt Cancelled";
     }
 
 }

@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { SellService } from './sell.service';
 
 @Controller('sell')
@@ -27,4 +27,12 @@ export class SellController {
   async getByID(@Param('id') id) {
     return await this.sellService.getById(id);
   }
+
+  @Put(':id')
+    async update(@Param('id') id: string, @Body() body: any) {
+        const newCat: any = await this.sellService.update(id, body)
+        return "Receipt Cancelled";
+    }
+
+
 }

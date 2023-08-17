@@ -28,6 +28,18 @@ export class SellService {
         return await s;
     }
 
+    async update(id: string, data: any): Promise<any> {
+        console.log(data);
+        return this.sellRepository
+        .createQueryBuilder()
+        .update()
+        .set({
+          status: data.status
+        })
+        .where('id = :id', { id })
+        .execute() 
+      }
+
     async getAll() {
         return await this.sellRepository.find({ relations: ['sellItems'] });
     }
