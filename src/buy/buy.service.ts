@@ -67,14 +67,14 @@ export class BuyService {
     return query;
   }
 
-  async getByDateRange(sDate, eDate) {
-    const query = await this.buyRepository.query('SELECT buy.id,customer.`name` AS cus_name,customer.mobile AS cus_mobile,buy.date,DATE_FORMAT(buy.date, "%Y-%m-%d") AS df,buy.time,buy.total FROM buy INNER JOIN customer ON buy.customer=customer.id WHERE buy.`status`="1" AND buy.date BETWEEN "' + sDate + '" AND "' + eDate + '"');
-    return query;
-  }
+  // async getByDateRange(sDate, eDate) {
+  //   const query = await this.buyRepository.query('SELECT buy.id,customer.`name` AS cus_name,customer.mobile AS cus_mobile,buy.date,DATE_FORMAT(buy.date, "%Y-%m-%d") AS df,buy.time,buy.total FROM buy INNER JOIN customer ON buy.customer=customer.id WHERE buy.`status`="1" AND buy.date BETWEEN "' + sDate + '" AND "' + eDate + '"');
+  //   return query;
+  // }
 
   // async getByDateRange(sDate, eDate) {
   //   console.log(sDate, eDate);
-  //   const query = await this.buyRepository.query('SELECT buy.id,customer.`name` AS cus_name,customer.mobile AS cus_mobile,buy.date,buy.time,buy.total FROM buy INNER JOIN customer ON buy.customer=customer.id WHERE buy.`status`="1" AND buy.date BETWEEN "' + sDate + '" AND "' + eDate + '"');
+  //   const query = await this.buyRepository.query('SELECT buy.id,customer.`name` AS cus_name,customer.mobile AS cus_mobile,buy.date,DATE_FORMAT(buy.date, "%Y-%m-%d") AS df,buy.time,buy.total FROM buy INNER JOIN customer ON buy.customer=customer.id WHERE buy.`status`="1" AND buy.date BETWEEN "' + sDate + '" AND "' + eDate + '"');
   //   let i = 0;
   //   console.log(query.length);
 
@@ -95,6 +95,38 @@ export class BuyService {
   //   setTimeout(() => { }, 1000)
   //   return query;
   // }
+
+  async getByDateRange(sDate, eDate) {
+    try {
+      const query = await this.buyRepository.query(`
+        SELECT buy.id, customer.name AS cus_name, customer.mobile AS cus_mobile, buy.date, 
+               DATE_FORMAT(buy.date, "%Y-%m-%d") AS df, buy.time, buy.total
+        FROM buy
+        INNER JOIN customer ON buy.customer = customer.id
+        WHERE buy.status = "1" AND buy.date BETWEEN ? AND ?
+      `, [sDate, eDate]);
+  
+      for (let i = 0; i < query.length; i++) {
+        const buyId = query[i].id;
+        const q2 = await this.buyItemRepo.query(`
+          SELECT buy_item.unitPrice, buy_item.qty, buy_item.subTotal, product.name,
+                 product.quality, product.sinhala, buy_item.wastage, buy_item.buyId
+          FROM buy_item
+          INNER JOIN product ON buy_item.productId = product.id
+          WHERE buy_item.buyId = ?
+        `, [buyId]);
+        
+        query[i].buyitems = q2;
+      }
+  
+      return query;
+    } catch (error) {
+      // Handle errors here
+      console.error("An error occurred:", error);
+      throw error; // Rethrow the error to be caught by the caller
+    }
+  }
+  
 
   async getById(id) {
     return await this.buyRepository.findOne(id);

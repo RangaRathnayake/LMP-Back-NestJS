@@ -23,6 +23,11 @@ export class SellController {
     return await this.sellService.getByDate(date);
   }
 
+  @Get('ByDateRange/:sDate&:eDate')
+    async getByDateRange(@Param('sDate') sDate, @Param('eDate') eDate) {
+        return await this.sellService.getByDateRange(sDate, eDate);
+    }
+
   @Get(':id')
   async getByID(@Param('id') id) {
     return await this.sellService.getById(id);
